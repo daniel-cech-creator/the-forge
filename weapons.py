@@ -1,3 +1,5 @@
+# WEAPON CLASS AND WEAPON LIST
+
 from enum import Enum
 
 class WeaponType(Enum):
