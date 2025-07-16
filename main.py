@@ -1,17 +1,18 @@
+# GAME LOOP AND CORE LOGIC
 import time, os, random
 
 import weapons
 from player import Player
+import inventory
+import enemies
+from utils import *
 
-def clear_terminal():
-    #Windows
-    if os.name == 'nt':os.system('cls')
-    else:os.system('clear')
 
-clear_terminal()
+
+clear()
 player = Player(f'{str(input('Name your vessel: '))}',weapons.wood_sword)
-if player.name == '':player.name = 'Hero'
-clear_terminal()
+if player.name == '' :player.name = 'Vessel'
+clear()
 
 #Title
 print(r'''
@@ -23,21 +24,32 @@ print(r'''
                |___/      
 ''')
 input('Enter to continue')
-clear_terminal()
+clear()
 
 #Game Loop
 while player.health > 0:
     
+    # Stats
     print(f'HP - {player.health}/{player.max_health}')
     print(f'Stamina - {player.stamina}/{player.max_stamina}')
     print(f'Money - {player.money}')
     print(f'Equipped Weapon - {player.equipped_weapon.name}')
 
     print('-----------------')
-    print('What will you do?')
+    print('What will you do?\n')
     print('1 = Next room | 2 = Inventory')
 
     choice = str(input('> '))
-    if choice == 'exit': exit()
+    if choice.upper() == 'EXIT': exit()
 
-    clear_terminal()
+    if choice == '1':
+        print('\nGoing to the next room...')
+        input()
+    elif choice == '2':
+        print('\nOpening inventory')
+        input()
+    else:
+        print(red('\nInvalid input!'))
+        input()
+    
+    clear()
