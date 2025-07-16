@@ -9,7 +9,8 @@ def clear_terminal():
     else:os.system('clear')
 
 clear_terminal()
-player = Player(f'{str(input('Enter your name: '))}')
+player = Player(f'{str(input('Name your vessel: '))}',weapons.wood_sword)
+if player.name == '':player.name = 'Hero'
 clear_terminal()
 
 #Title
@@ -21,14 +22,22 @@ print(r'''
 |_|  \___/|_|  \__, |\___|
                |___/      
 ''')
-input()
+input('Enter to continue')
 clear_terminal()
 
 #Game Loop
 while player.health > 0:
+    
+    print(f'HP - {player.health}/{player.max_health}')
+    print(f'Stamina - {player.stamina}/{player.max_stamina}')
+    print(f'Money - {player.money}')
+    print(f'Equipped Weapon - {player.equipped_weapon.name}')
+
+    print('-----------------')
     print('What will you do?')
     print('1 = Next room | 2 = Inventory')
 
     choice = str(input('> '))
     if choice == 'exit': exit()
+
     clear_terminal()
