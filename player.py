@@ -1,3 +1,5 @@
+# PLAYER CLASS AND FUNCTIONS
+
 class Player:
     def __init__(self, name, equipped_weapon, health=100, max_health=100, money=0, stamina=100, max_stamina=100, inventory=None):
         # If no inventory was given, create a new empty list
