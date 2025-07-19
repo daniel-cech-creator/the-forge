@@ -1,10 +1,12 @@
 # POLISHING UTILITY FUNCTIONS
 import os
 
-def clear():
+def clear_term():
     #Windows
-    if os.name == 'nt':os.system('cls')
-    else:os.system('clear')
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def black(a):
     return (f"\033[30m{a}\033[0m")
@@ -22,3 +24,7 @@ def azure(a):
     return (f"\033[36m{a}\033[0m")
 def white(a):
     return (f"\033[37m{a}\033[0m")
+
+def max_stat_check(hp,maxHp,stam,maxStam):
+    if hp > maxHp: hp = maxHp
+    if stam > maxStam: stam = maxStam
