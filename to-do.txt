@@ -1,0 +1,24 @@
+=====
+TO DO
+=====
+
+* working inventory system
+    * consumable items
+    * armor?
+* floor progression
+* more weapons
+    * special weapon effects?
+* more enemies
+* more complex health system (body parts)
+
+* resting place (restores stamina)
+* shopkeeper
+
+=============
+ ITEMS IDEAS
+=============
+
+* Heart charm (+10 max hp)
+* Energizer (+10 max stamina)
+* Meaty slop (heals for +30 hp)
+*

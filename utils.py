@@ -1,5 +1,6 @@
 # POLISHING UTILITY FUNCTIONS
 import os
+from time import sleep
 
 def clear_term():
     #Windows
@@ -25,6 +26,8 @@ def azure(a):
 def white(a):
     return (f"\033[37m{a}\033[0m")
 
-def max_stat_check(hp,maxHp,stam,maxStam):
-    if hp > maxHp: hp = maxHp
-    if stam > maxStam: stam = maxStam
+def write_out(chars, timeBetweenLetters=0.01):
+    for ch in chars:
+        print(ch, end='', flush=True)
+        sleep(timeBetweenLetters)
+    print()

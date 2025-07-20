@@ -1,4 +1,5 @@
 # ENEMY CLASS AND ENEMY LIST
+from utils import write_out
 
 class Enemy:
     def __init__(self,name,health,max_health,dmg,loot):
@@ -10,9 +11,9 @@ class Enemy:
 
     def attack_turn(self,defending):
         if defending is True:
-            print(f'{self.name} attacked you for {self.dmg/2} damage.')
+            write_out(f'{self.name} attacked you for {self.dmg/2} damage.')
         else:
-            print(f'{self.name} attacked you for {self.dmg} damage.')
+            write_out(f'{self.name} attacked you for {self.dmg} damage.')
 
 
 # --- Entrance enemies ---
