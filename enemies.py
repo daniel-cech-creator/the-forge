@@ -11,15 +11,17 @@ class Enemy:
 
     def attack_turn(self,defending):
         if defending is True:
-            write_out(f'{self.name} attacked you for {self.dmg/2} damage.')
+            print(f'{self.name} attacked you for {self.dmg/2} damage.')
         else:
-            write_out(f'{self.name} attacked you for {self.dmg} damage.')
+            print(f'{self.name} attacked you for {self.dmg} damage.')
 
 
 # --- Entrance enemies ---
 
 #   Name, Health, Max Health, Damage, Loot
-dummy = Enemy('Training Dummy', 30, 30, 0, 0)
+dummy = Enemy('Dummy', 30, 30, 0, 0)
 giant_rat = Enemy('Giant Rat', 35, 35, 4, 0)
+old_statue = Enemy('Old Statue', 60,60,8,0)
 
-enemy_pool = [dummy,giant_rat]
+
+enemy_pool = [dummy,giant_rat,old_statue]

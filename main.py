@@ -1,28 +1,25 @@
 # GAME LOOP AND CORE LOGIC
 import time, os, random
 
-import weapons
+import weapons, inventory, enemies, utils, items
 from player import Player
-import inventory
-import enemies
-import utils
-
 
 utils.clear_term()
-player = Player(f'{str(input('Name your vessel: '))}',weapons.wood_sword)
-if player.name == '' :player.name = 'Vessel'
-utils.clear_term()
-
 #Title
 print(r'''
  _____                    
 |  ___|__  _ __ __ _  ___ 
 | |_ / _ \| '__/ _` |/ _ \
 |  _| (_) | | | (_| |  __/
-|_|  \___/|_|  \__, |\___|
+|_|  \___/|_|  \__, |\___| Nothing stays buried forever
                |___/      
 ''')
 input('Enter to continue')
+
+# Setting name
+utils.clear_term()
+player = Player(f'{str(input('Name your vessel: '))}',weapons.wood_sword)
+if player.name == '' :player.name = 'Vessel'
 utils.clear_term()
 
 #Game Loop
@@ -33,7 +30,8 @@ while player.health > 0:
     print(f'Stamina - {player.stamina}/{player.max_stamina}')
     print(f'Money - {player.money}')
     print(f'Equipped Weapon - {player.equipped_weapon.name} | {player.equipped_weapon.dmg} DMG | {player.equipped_weapon.stamina_drain} Stamina drain')
-
+    print(utils.azure('\nInventory:\n'))
+    items.display_inv(player.inventory)
     print('-----------------')
     print(utils.azure('What will you do?\n'))
     print('1 = Next room | 2 = Inventory')
@@ -42,7 +40,7 @@ while player.health > 0:
     if choice.upper() == 'EXIT': exit()
 
     if choice == '1':
-        utils.write_out('\nGoing to the next room...')
+        print('\nGoing to the next room...')
         input()
 
         #Choosing random room
@@ -53,7 +51,7 @@ while player.health > 0:
                 current_enemy = random.choice(enemies.enemy_pool)
                 current_enemy.health = current_enemy.max_health
 
-                utils.write_out(utils.red(f'A {current_enemy.name} has appeared!'))
+                print(utils.red(f'A {current_enemy.name} has appeared!'))
                 input()
                 
                 #Battle loop
@@ -62,7 +60,8 @@ while player.health > 0:
                     print(f'{player.name} HP - {player.health}/{player.max_health}')
                     print(f'{player.name} Stamina - {player.stamina}/{player.max_stamina}\n')
                     print(f'{current_enemy.name} HP - {current_enemy.health}/{current_enemy.max_health}')
-                    print('-----------------')
+                    print(utils.azure('\nInventory:\n'))
+                    items.display_inv(player.inventory)
                     print(utils.azure('What will you do?\n'))
                     print('1 = Attack | 2 = Inventory | 3 = Defend')
                     choice = str(input('> '))
@@ -73,7 +72,7 @@ while player.health > 0:
 
                             current_enemy.health -= player.equipped_weapon.dmg
                             player.stamina -= player.equipped_weapon.stamina_drain
-                            utils.write_out(utils.red(f'\nYou attacked for {player.equipped_weapon.dmg} damage.'))
+                            print(utils.red(f'\nYou attacked for {player.equipped_weapon.dmg} damage.'))
                             input()
                         else:
                             print(utils.blue('\nNot enough stamina!'))
@@ -116,19 +115,26 @@ while player.health > 0:
                     utils.clear_term()
                     print(utils.yellow('You won!'))
                     input()
+                    
+                    # Loot
+                    battle_loot = items.roll_loot(items.item_pool)
+                    items.loot_display(battle_loot, current_enemy.loot)
+                    player.inventory.extend(battle_loot)
+                    input()
                 else:
                     utils.clear_term()
                     print(utils.red('You lost!'))
                     input()
+                    exit()
 
             #Chest room 
             case 2:
-                utils.write_out(utils.yellow("You've found a treasure room!"))
+                print(utils.yellow("You've found a treasure room!"))
                 input()
             
             #Empty room
             case 3:
-                utils.write_out(utils.blue("The room is pretty much empty."))
+                print(utils.blue("The room is pretty much empty."))
                 input()
         
 
@@ -140,6 +146,3 @@ while player.health > 0:
         input()
     
     utils.clear_term()
-
-
-#fix enemy health not reseting
