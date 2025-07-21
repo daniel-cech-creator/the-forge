@@ -1,22 +1,21 @@
-=====
-TO DO
-=====
 
 * working inventory system
     * consumable items
-    * armor?
+    * armor
 * floor progression
 * more weapons
     * special weapon effects?
 * more enemies
-* more complex health system (body parts)
+* more complex health system (body parts) not promised
+* experience and levels
+* crafting
 
 * resting place (restores stamina)
 * shopkeeper
 
-=============
- ITEMS IDEAS
-=============
+_______________
+| ITEMS IDEAS |
+---------------
 
 * Heart charm (+10 max hp)
 * Energizer (+10 max stamina)
