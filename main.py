@@ -62,6 +62,7 @@ while player.health > 0:
                     print(f'{current_enemy.name} HP - {current_enemy.health}/{current_enemy.max_health}')
                     print(utils.azure('\nInventory:\n'))
                     items.display_inv(player.inventory)
+                    print('-----------------')
                     print(utils.azure('What will you do?\n'))
                     print('1 = Attack | 2 = Inventory | 3 = Defend')
                     choice = str(input('> '))
