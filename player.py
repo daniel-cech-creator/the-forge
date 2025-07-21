@@ -4,7 +4,7 @@ class Player:
     def __init__(self, name, equipped_weapon, health=100, max_health=100, money=0, stamina=100, max_stamina=100, inventory=None, defending=False):
         
         if inventory is None:
-            inventory = [None,None,None,None,None]
+            inventory = []
 
         self.name = name
         self.equipped_weapon = equipped_weapon
