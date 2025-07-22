@@ -16,12 +16,12 @@ class Enemy:
             print(f'{self.name} attacked you for {self.dmg} damage.')
 
 
-# --- Entrance enemies ---
+# --- Entrance enemies --- 
 
 #   Name, Health, Max Health, Damage, Loot
 dummy = Enemy('Dummy', 30, 30, 0, 0)
 giant_rat = Enemy('Giant Rat', 35, 35, 4, 0)
-old_statue = Enemy('Old Statue', 60,60,8,0)
+old_statue = Enemy('Old Statue', 50,50,6,0)
 
 
 enemy_pool = [dummy,giant_rat,old_statue]
