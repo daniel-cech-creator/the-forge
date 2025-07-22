@@ -4,37 +4,35 @@ from time import sleep
 from items import color_by_rarity
 
 def clear_term():
-    #Windows
-    if os.name == 'nt':
+    if os.name == 'nt': #Windows
         os.system('cls')
     else:
         os.system('clear')
 
-def black(a):
-    return (f"\033[30m{a}\033[0m")
-def red(a):
-    return (f"\033[31m{a}\033[0m")
-def green(a):
-    return (f"\033[32m{a}\033[0m")
-def yellow(a):
-    return (f"\033[33m{a}\033[0m")
-def blue(a):
-    return (f"\033[34m{a}\033[0m")
-def purple(a):
-    return (f"\033[35m{a}\033[0m")
-def azure(a):
-    return (f"\033[36m{a}\033[0m")
-def white(a):
-    return (f"\033[37m{a}\033[0m")
-
+def black(text):
+    return (f"\033[30m{text}\033[0m")
+def red(text):
+    return (f"\033[31m{text}\033[0m")
+def green(text):
+    return (f"\033[32m{text}\033[0m")
+def yellow(text):
+    return (f"\033[33m{text}\033[0m")
+def blue(text):
+    return (f"\033[34m{text}\033[0m")
+def purple(text):
+    return (f"\033[35m{text}\033[0m")
+def azure(text):
+    return (f"\033[36m{text}\033[0m")
+def white(text):
+    return (f"\033[37m{text}\033[0m")
 def rainbow(text):
     colors = [
         "\033[31m",  # Red
         "\033[33m",  # Yellow
         "\033[32m",  # Green
-        "\033[36m",  # Cyan (Azure)
+        "\033[36m",  # Azure
         "\033[34m",  # Blue
-        "\033[35m",  # Purple (Magenta)
+        "\033[35m",  # Purple
     ]
     reset = "\033[0m"
 
@@ -45,8 +43,8 @@ def rainbow(text):
     result += reset
     return result
 
-def write_out(chars, timeBetweenLetters=0.01):
-    for ch in chars:
-        print(ch, end='', flush=True)
-        sleep(timeBetweenLetters)
+def write_out(text, cooldown=0.01):
+    for char in text:
+        print(char, end='', flush=True)
+        sleep(cooldown)
     print()
