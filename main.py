@@ -1,20 +1,23 @@
 # GAME LOOP AND CORE LOGIC
 import time, os, random
 
-import weapons, inventory, enemies, utils, items
+import weapons, inventory, enemies, items
 from player import Player
+import utils
 
 utils.clear_term()
 #Title
 print(r'''
- _____                    
-|  ___|__  _ __ __ _  ___ 
-| |_ / _ \| '__/ _` |/ _ \
-|  _| (_) | | | (_| |  __/
-|_|  \___/|_|  \__, |\___| Nothing stays buried forever
-               |___/      
+   _____                    
+  |  ___|__  _ __ __ _  ___ 
+  | |_ / _ \| '__/ _` |/ _ \
+  |  _| (_) | | | (_| |  __/
+  |_|  \___/|_|  \__, |\___|
+                 |___/  
+          
+ NOTHING STAYS BURIED FOREVER
 ''')
-input('Enter to continue')
+input()
 
 # Setting name
 utils.clear_term()
@@ -30,8 +33,6 @@ while player.health > 0:
     print(f'Stamina - {player.stamina}/{player.max_stamina}')
     print(f'Money - {player.money}')
     print(f'Equipped Weapon - {player.equipped_weapon.name} | {player.equipped_weapon.dmg} DMG | {player.equipped_weapon.stamina_drain} Stamina drain')
-    print(utils.azure('\nInventory:\n'))
-    items.display_inv(player.inventory)
     print('-----------------')
     print(utils.azure('What will you do?\n'))
     print('1 = Next room | 2 = Inventory')
@@ -39,6 +40,7 @@ while player.health > 0:
     choice = str(input('> '))
     if choice.upper() == 'EXIT': exit()
 
+    # NEXT ROOM
     if choice == '1':
         print('\nGoing to the next room...')
         input()
@@ -60,8 +62,6 @@ while player.health > 0:
                     print(f'{player.name} HP - {player.health}/{player.max_health}')
                     print(f'{player.name} Stamina - {player.stamina}/{player.max_stamina}\n')
                     print(f'{current_enemy.name} HP - {current_enemy.health}/{current_enemy.max_health}')
-                    print(utils.azure('\nInventory:\n'))
-                    items.display_inv(player.inventory)
                     print('-----------------')
                     print(utils.azure('What will you do?\n'))
                     print('1 = Attack | 2 = Inventory | 3 = Defend')
@@ -119,7 +119,7 @@ while player.health > 0:
                     
                     # Loot
                     battle_loot = items.roll_loot(items.item_pool)
-                    items.loot_display(battle_loot, current_enemy.loot)
+                    items.loot_display(battle_loot, current_enemy.loot, player)
                     player.inventory.extend(battle_loot)
                     input()
                 else:
@@ -132,15 +132,26 @@ while player.health > 0:
             case 2:
                 print(utils.yellow("You've found a treasure room!"))
                 input()
+                utils.clear_term()
+                print(utils.yellow("You've found a treasure room!"))
+                input()
+                chest_loot = items.roll_loot(items.item_pool)
+                items.loot_display(chest_loot, random.randint(15,85),player)
+                player.inventory.extend(chest_loot)
+                input()
             
             #Empty room
             case 3:
                 print(utils.blue("The room is pretty much empty."))
                 input()
-        
 
+    # OPEN INVENTORY
     elif choice == '2':
         print('\nOpening inventory')
+        utils.clear_term()
+        print(utils.azure('\nInventory:\n'))
+        items.display_inv(player.inventory)
+        print('\n(ne nemuzes s tim nic delat, je to ZATIM jen pro efekt)')
         input()
     else:
         print(utils.red('\nInvalid input!'))
