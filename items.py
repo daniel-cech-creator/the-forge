@@ -27,13 +27,14 @@ def color_by_rarity(item):
     elif item.rarity == "legendary":
         return utils.rainbow(item.name)
 
-def loot_display(battle_loot,money):
+def loot_display(battle_loot,gold,player):
     print('You found:\n')
     sleep(0.5)
     for item in battle_loot:
         print(' +'+color_by_rarity(item))
         sleep(0.1)
-    print(utils.yellow(f' +{money} gold'))
+    print(utils.yellow(f' +{gold} gold'))
+    player.money += gold
     print()
 
 
