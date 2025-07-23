@@ -28,6 +28,7 @@ def color_by_rarity(item):
         return utils.rainbow(item.name)
 
 def loot_display(battle_loot,gold,player):
+    print()
     print('You found:\n')
     sleep(0.5)
     for item in battle_loot:

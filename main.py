@@ -29,10 +29,10 @@ utils.clear_term()
 while player.health > 0:
     
     # Stats
-    print(f'HP - {player.health}/{player.max_health}')
-    print(f'Stamina - {player.stamina}/{player.max_stamina}')
-    print(f'Money - {player.money}')
-    print(f'Equipped Weapon - {player.equipped_weapon.name} | {player.equipped_weapon.dmg} DMG | {player.equipped_weapon.stamina_drain} Stamina drain')
+    print(f'{utils.red('HP')} - {utils.red(player.health)}/{utils.red(player.max_health)}')
+    print(f'{utils.blue('Stamina')} - {utils.blue(player.stamina)}/{utils.blue(player.max_stamina)}')
+    print(f'{utils.yellow('Money')} - {utils.yellow(player.money)}')
+    print(f'Equipped Weapon - {utils.green(player.equipped_weapon.name)} | {utils.red(f'{player.equipped_weapon.dmg} DMG')} | {utils.blue(f'{player.equipped_weapon.stamina_drain} Stamina Drain')}')
     print('-----------------')
     print(utils.azure('What will you do?\n'))
     print('1 = Next room | 2 = Inventory')
@@ -115,7 +115,6 @@ while player.health > 0:
                 if player.health > 0 and current_enemy.health < 1:
                     utils.clear_term()
                     print(utils.yellow('You won!'))
-                    input()
                     
                     # Loot
                     battle_loot = items.roll_loot(items.item_pool)
@@ -134,7 +133,6 @@ while player.health > 0:
                 input()
                 utils.clear_term()
                 print(utils.yellow("You've found a treasure room!"))
-                input()
                 chest_loot = items.roll_loot(items.item_pool)
                 items.loot_display(chest_loot, random.randint(15,85),player)
                 player.inventory.extend(chest_loot)
@@ -142,16 +140,16 @@ while player.health > 0:
             
             #Empty room
             case 3:
-                print(utils.blue("The room is pretty much empty."))
+                print(utils.blue("The room is empty..."))
                 input()
+                if random.random() < 0.3:
+                    found_coins = random.randint()
+                    player.money += found_coins
+                    print(utils.blue(f'But you found {found_coins} coins!'))
 
     # OPEN INVENTORY
     elif choice == '2':
-        print('\nOpening inventory')
-        utils.clear_term()
-        print(utils.azure('\nInventory:\n'))
-        items.display_inv(player.inventory)
-        print('\n(ne nemuzes s tim nic delat, je to ZATIM jen pro efekt)')
+        inventory.draw_inventory(player.inventory)
         input()
     else:
         print(utils.red('\nInvalid input!'))
