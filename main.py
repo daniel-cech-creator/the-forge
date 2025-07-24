@@ -143,7 +143,7 @@ while player.health > 0:
                 print(utils.blue("The room is empty..."))
                 input()
                 if random.random() < 0.3:
-                    found_coins = random.randint()
+                    found_coins = random.randint(45,95)
                     player.money += found_coins
                     print(utils.blue(f'But you found {found_coins} coins!'))
 
