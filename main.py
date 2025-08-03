@@ -15,7 +15,7 @@ print(r'''
   |_|  \___/|_|  \__, |\___|
                  |___/  
           
- NOTHING STAYS BOBR FOREVER
+ NOTHING STAYS BURIED FOREVER
 ''')
 input()
 
