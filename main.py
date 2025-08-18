@@ -56,35 +56,44 @@ while player.health > 0:
             continue
 
         # Special room (5% chance)
-        if random.random() <= 0.5:
+        if random.random() <= 0.05:
             match random.randint(1,3):
 
                 # Magical Fountain
                 case 1:
                     print('Your path was interrupted by a mystical fountain...')
                     input()
-                    utils.clear_term()
-                    print(utils.azure('What will you do?\n'))
-                    print('\n1 = Drink the water | 2 = Leave')
-                    choice = str(input('> '))
-                    utils.clear_term()
-                    if choice == '1':
-                        print('You took a sip from the fountain...')
-                        input()
-                        print('Your health was replenished!')
-                        player.health = player.max_health
+                    answered = False
+                    while answered == False:
+                        utils.clear_term()
+                        print(utils.azure('What will you do?\n'))
+                        print('\n1 = Drink the water | 2 = Leave')
+                        choice = str(input('> '))
                         
-                    else:
-                        print("You've moved on without drinking the water.")
+                        if choice == '1':
+                            utils.clear_term()
+                            print('You took a sip from the fountain...')
+                            input()
+                            print(utils.green('Your health was replenished!'))
+                            answered = True
+                            player.health = player.max_health
+                        elif choice == '2':
+                            utils.clear_term()
+                            print("You've moved on without drinking the water.")
+                            answered = True
+                            
+                        else:
+                            print(utils.red('Invalid input!'))
+                            input()
                         
                 
                 # Crystal Ball
                 case 2:
-                    print('crystal ball')
+                    print('You entered a dimly lit room with a table holding a crystal ball.')
 
                 # Totem of Solitude
                 case 3:
-                    print('totem of solitude')
+                    print("Your path is blocked by a strange looking man.")
             input()
             roomCount += 1
             continue
