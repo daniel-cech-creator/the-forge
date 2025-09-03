@@ -56,12 +56,12 @@ while player.health > 0:
             continue
 
         # Special room (5% chance)
-        if random.random() <= 0.05:
-            match random.randint(1,3):
+        if random.random() <= 0.5:
+            match random.randint(1,4):
 
                 # Magical Fountain
                 case 1:
-                    print('Your path was interrupted by a mystical fountain...')
+                    print(utils.blue('Your path was interrupted by a mystical fountain...'))
                     input()
                     answered = False
                     while answered == False:
@@ -85,16 +85,79 @@ while player.health > 0:
                         else:
                             print(utils.red('Invalid input!'))
                             input()
+                    input()
                         
                 
                 # Crystal Ball
                 case 2:
-                    print('You entered a dimly lit room with a table holding a crystal ball.')
+                    print(utils.purple('You entered a dimly lit room with a table holding a crystal ball.'))
+                    input()
 
-                # Totem of Solitude
+                # Rattman
                 case 3:
-                    print("Your path is blocked by a strange looking man.")
-            input()
+                    print(utils.green("Your path is blocked by a strange looking man rat."))
+                    input()
+                    utils.clear_term()
+                    print("\"Hey kid... you look like someone whos looking for a profit, eh? Well lucky you... I got\na game here you'll love.\"")
+                    input()
+                    answered = False
+                    while answered == False:
+                        utils.clear_term()
+                        print("\"So what do you say, kid? Down for a game or two?\"")
+                        print(utils.azure('What will you do?\n'))
+                        print('\n1 = Play a game | 2 = Leave | 3 = Fight')
+                        choice = str(input('> '))
+                        if choice == '1':
+                            print("\"\nYeah that's right! Let's do this...\"")
+                            input()
+                            answered = True
+                        elif choice == '2':
+                            print("\"\nHuh? Whatever you want... I could've made you a fortune.\"")
+                            input()
+                            answered = True
+                        elif choice == '3':
+                            print(utils.red("\"Huh... you're smarter than you look...\""))
+                            input()
+                            enemies.battle(enemies.rattman, player)
+                            answered = True
+                        else:
+                            print(utils.red('Invalid input!'))
+                            input()
+                case 4:
+                    print(utils.red("You stumble upon a lonely talking campfire..."))
+                    input()
+                    utils.clear_term()
+                    print("\"Greetings traveler... I'm the fire of wisdom, knower of all and more.\"")
+                    input()
+                    print("\"If you do not wish to talk, that is understandable, you can just enjoy my warmth\"")
+                    input()
+                    answered = False
+                    while answered == False:
+                        utils.clear_term()
+                        print("\"Feel free to ask any questions.\"")
+                        print(utils.azure('\nWhat will you do?\n'))
+                        print('\n1 = Rest | 2 = Leave | 3 = Talk')
+                        choice = str(input('> '))
+
+                        if choice == '1':
+                            print("\nYou sat down next to the fire and rested...")
+                            input()
+                            print(utils.green("Your stamina was replenished!"))
+                            player.stamina = player.max_stamina
+                            input()
+                        elif choice == '2':
+                            print("\n\"Good luck on your journey, traveler...\"")
+                            input()
+                            answered = True
+                        elif choice == '3':
+                            print("\n\"Very well, what's your question?\"")
+                            input()
+                        else:
+                            print(utils.red('Invalid input!'))
+                            input()
+
+
+            #input()
             roomCount += 1
             continue
         
@@ -109,79 +172,8 @@ while player.health > 0:
 
                 print(utils.red(f'A {current_enemy.name} has appeared!'))
                 input()
-                
-                #Battle loop
-                while current_enemy.health > 0 and player.health > 0:
-                    utils.clear_term()
-                    print(f'{player.name} HP - {player.health}/{player.max_health}')
-                    print(f'{player.name} Stamina - {player.stamina}/{player.max_stamina}\n')
-                    print(f'{current_enemy.name} HP - {current_enemy.health}/{current_enemy.max_health}')
-                    print('-----------------')
-                    print(utils.azure('What will you do?\n'))
-                    print('1 = Attack | 2 = Inventory | 3 = Defend')
-                    choice = str(input('> '))
-
-                    # Attacking
-                    if choice == '1':
-                        if player.stamina > player.equipped_weapon.stamina_drain:
-
-                            current_enemy.health -= player.equipped_weapon.dmg
-                            player.stamina -= player.equipped_weapon.stamina_drain
-                            print(utils.red(f'\nYou attacked for {player.equipped_weapon.dmg} damage.'))
-                            input()
-                        else:
-                            print(utils.blue('\nNot enough stamina!'))
-                            input()
-                            continue
-                    
-                    # Defending
-                    elif choice == '3':
-                        player.defending = True
-                        player.stamina += 15
-                        print('\nYou are defending!')
-                        input()
-
-                    # Invalid input
-                    else:
-                        print(utils.red('Invalid input!'))
-                        input()
-                        continue
-                    
-                    # ENEMY TURN
-                    if current_enemy.health > 0:
-                        current_enemy.attack_turn(player.defending)
-                        if player.defending is True:
-                            player.health -= current_enemy.dmg/2
-                        else:
-                            player.health -= current_enemy.dmg
-                        input()
-
-                        if player.defending == True:
-                            print(utils.yellow('You are no longer defending.'))
-                            player.defending = False
-                            input()
-                    else:
-                        print('The enemy died before it could attack.')
-                        input()
-                    player.stat_check()
-                
-                # Battle results
-                if player.health > 0 and current_enemy.health < 1:
-                    utils.clear_term()
-                    print(utils.yellow('You won!'))
-                    
-                    # Loot
-                    battle_loot = items.roll_loot(items.item_pool)
-                    items.loot_display(battle_loot, current_enemy.loot, player)
-                    player.inventory.extend(battle_loot)
-                    input()
-                    roomCount += 1
-                else:
-                    utils.clear_term()
-                    print(utils.red('You lost!'))
-                    input()
-                    exit()
-            
+                enemies.battle(current_enemy, player)
+                roomCount += 1
 
             #Chest room 
             case 2:
@@ -199,10 +191,10 @@ while player.health > 0:
             case 3:
                 print(utils.blue("The room is empty..."))
                 input()
-                if random.random() < 0.3:
+                if random.random() < 0.9:
                     found_coins = random.randint(45,95)
                     player.money += found_coins
-                    print(utils.blue(f'But you found {found_coins} coins!'))
+                    print(f'But you found {utils.yellow(f'{found_coins} coins')}!')
                     input()
                 roomCount += 1
 
