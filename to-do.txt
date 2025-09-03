@@ -10,8 +10,7 @@
 * experience and levels
 * crafting
 
-* resting place (restores stamina)
-* shopkeeper
+* shopkeeper's keep
 
 _______________
 | ITEMS IDEAS |
