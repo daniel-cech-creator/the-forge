@@ -1,7 +1,7 @@
 # POLISHING UTILITY FUNCTIONS
 import os
 from time import sleep
-from items import color_by_rarity
+
 
 def clear_term():
     if os.name == 'nt': #Windows
@@ -42,9 +42,3 @@ def rainbow(text):
         result += f"{color}{char}"
     result += reset
     return result
-
-def write_out(text, cooldown=0.01):
-    for char in text:
-        print(char, end='', flush=True)
-        sleep(cooldown)
-    print()
